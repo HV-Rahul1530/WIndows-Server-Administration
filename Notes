@@ -1,0 +1,1319 @@
+### Useful
+
+Know about the linux you are using 
+
+**cat /etc/os-release**
+
+**Linux Commands**
+
+**blkid** : See the file system of the OS
+
+**lsblk : which directory is mounted where**
+
+**vim .bashrc :** to create the alias of any command (e.g. ls -lh = ll )
+
+If files are in the pwd then no need to give location otherwise mention file with full location
+Starting with "~/"
+
+"~" This is home
+-v : Verbose mode
+-r : Recursive mode (Does action till the last location whether it is cp, mv or rm; used to operate with folders)
+
+. :  is for current location[pwd]
+
+cmd --help or info cmd or man cmd
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### ls
+
+ls -lhart (list form, human readable, all files(including hidden files), reverse, sorted by time)
+ls filename(contents inside file)
+ls -lha <location of file>
+
+ls -1 : only brings the name of the files
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- **Some Useful Commands**
+    
+    mkdir: Make directory
+    touch: Make empty file
+    nano: make file
+    vim = nano
+    rmdir: remove empty directory only
+    rm: Remove files as well as directory
+    rm -rf : remove empty/filled directory forcefully (-r for recursive)
+    
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### cd
+
+cd (to home)
+cd ..(one directory back)
+cd Documents/'Armour Infosec' or cd Documents/Armour\ Infosec (anything location starting from home can be accessed without / in beginning)
+
+(harsh㉿kali)-[/var/log/redis]
+cd ../../spool
+(harsh㉿kali)-[/var/spool]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### cp
+
+cp -v filename(with ‘from’ location) filename(with 'to' location)
+cp -v file1 file2 file3 file4 filen location1                                : All files will be capied in location1 - the last is the destination always
+cp -r /root/folder1/  /var/folder2/
+e.g cp -r folder1/ Downloads/
+cp -vr  ~/Videos/folder1 .                                                              :  . is for current location[pwd]
+cp -vr  ~/Videos/folder1 ../                                                           : one folder outside
+cp -r /Downloads/folder1/file[1-5] /Documents                : wild cards
+cp -r folder1/* Downloads/                                                         : copy all the contents of the folder but not the folder
+cp /var/log /home/*/                                                                      : copy log in every user
+
+(harsh㉿kali)-[~/Music]
+└─$ cp -vr  ~/Videos/folder1 ~/Downloads/
+'/home/harsh/Videos/folder1/f1' -> '/home/harsh/Downloads/folder1/f1'
+'/home/harsh/Videos/folder1/f2' -> '/home/harsh/Downloads/folder1/f2'
+'/home/harsh/Videos/folder1/f3' -> '/home/harsh/Downloads/folder1/f3'
+'/home/harsh/Videos/folder1/f4' -> '/home/harsh/Downloads/folder1/f4'
+
+See this difference carefully
+
+(root㉿kali)-[~]
+└─# cp -rv /home/harsh/Downloads/folder1 ~/home/harsh/Documents
+cp: cannot create directory '/root/home/harsh/Documents': No such file or directory
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### mv
+
+mv name rename
+mv is used for cut
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### **ln - Used for creating link**
+
+Two types of links:
+
+1. Soft link: ln -s : Updates the original file in real time
+2. Hard link: Creates a mirror of the actual file or folder, changes in the mirror will update the original file but deleting original file would not delete link
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Some essential commands:
+
+**less :** used instead of cat for content only full to one page
+**tty:** type of terminal; if we are logged in in actual computer then we get tty  if we ssh terminal then we get pts(this tells us that we are logged in using third tool like ssh)
+**id**
+**who** -a
+**w: t**ell the number of shells open
+**hostname:** name of pc
+**hostname** -i : ip address of 1st interface
+**hostname** -I : ips of all interfaces
+**uname** -a : Everything about OS
+**#lscpu:** what is the bit size of cpu
+**lsusb :** Connection througn usb
+**lspci** :  Connection through wireless
+**lsblk :** Information of hard drive
+**free** -h : About RAM
+ip ad = ifconfig
+route -n : routing table
+cat /etc/resolve.conf : Information of DNS
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Pipes and Redirects
+
+⇒ To run multiple commands at once: **“ ; ” or “ &&”**   b/w commands
+
+⇒ When we use piple (|) between commands, the output of first command is passed as a input for the later command and the output is shown for the last command, for example
+
+→ ifconfig | id | date | ls | pwd
+
+Output of ifconfig will be passed to id then the output generated from that combination will be passed as the input for date and so on…
+
+⇒ Code for standard input : 0
+⇒ Code for standard output : 1
+
+⇒ Code for standard error : 2
+
+“>” redirects output to a file : overwrites the file
+
+e.g. ls -la > filename.txt
+
+echo “Name : Harsh” > user.txt : This will make a file and add Name : Harsh 
+
+but if we do
+
+ echo “email : harshrahul@gmail.com” > user.txt : This will delete the previous content then add new instead of editing it.
+
+“>>” double redirection: Add content to the existing file without deleting the previous content : appends to the file
+
+e.g. 
+
+echo “Name : Harsh” > user.txt
+
+ echo “email : harshrahul@gmail.com” >> user.txt
+
+cat user.txt
+
+Output: Name : Harsh
+
+            email : harshrahul@gmail.com
+
+“<” redirects the content of a file to a command
+
+Syntax : cmd < filename.txt
+
+e.g. sort < numbers.txt
+
+wc < /etc/passwd
+
+“2>"   This is used to redirect the standard error
+
+e.g. cat /etc/os-release /etc/shadow /etc/sudoers 2> error.txt
+
+Above command will redirect all the errors in [error.t](http://error.tt)xt and show us the output only
+
+cat /etc/os-release /etc/shadow /etc/sudoers  > output.txt 2> error.txt
+
+Above command will redirect output to output.txt and error to error.txt
+
+“&>” This redirects both output and errors in one file
+
+/dev/null : Location to through garbage
+
+Some more examples 
+
+ls -1 “*.txt” > output.txt
+
+ls -1 “*.cfg” >> output.txt
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Compression and Archive Tools
+
+bzip2 : Replace file with compressed file (doesn’t work with folder)
+
+bunzip : Unzip the bzip file
+
+gzip : Same as bzip2 but reduces more size (doesn’t work with folder)
+
+gunzip : unzip gzip 
+
+gzip -r : Compresses files inside folder
+
+zip  : Makes new file without overwriting the actual file
+
+zip filename.zip filename filename2 …( filename.zip is the file which is going to get created and filename is the file out of which the zipped file is going to get created)
+
+e.g. zip output.txt.zip output.txt
+
+uzip : Unzip the zip
+
+e.g.2 zip File.zip file1 file2 file3 file4 (All files will get compressed in one file only
+
+TAR : Creates backup; Archive files; keeps the same form; Can be used with folders
+
+⇒ tar -cvs (create, verbose, forcefully) filename.tar(which is getting created) filename(which we are backing up)
+
+⇒ tar -cvs  filename.tar file1, file2, filex…
+
+Untar:
+
+⇒ tar -xvf(extract, verbose, forcefully) filename.tar
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Text Editor
+
+- cat
+    
+    -n : number of lines
+    
+    cat : read content of the file
+    
+    cat > file.txt
+    
+    cat file.txt
+    
+    cat <<EOF>> text.txt (Editor will exit if the word between <<>> comes in written without the need to use ctrl + c)
+    
+    cat -n (number before each line)
+    
+    cat -e ($ at the end of each line
+    
+- nano
+    
+    Same as notepad
+    
+    There are so many options in nano use ctrl + G to see them all
+    
+    It can merge files, it can open multiple files in one, spell check and many more
+    
+- vim
+    
+    [5 Modes:](https://www.notion.so/5-Modes-acaf20494f7142079e8c34dc275f5182?pvs=21)
+    
+    1. Command Mode (default)
+    2. Insert Mode (i/insert)
+    3. Visual Mode (v)
+    4. Replace Mode (R)
+    5. Command-Line (Last Line Mode) ( : )
+    
+    Exit from any mode to go to command mode use ESC
+    
+    For writing in vim: Insert Mode → Write Change → Command Mode → :w or :wq(save and exit)
+    
+    vim command mode shortcuts:
+    
+    Quit without saving : :q!
+    
+    Save and exit when file is in use :  :wq!
+    
+    Delete line: dd                                         delete n lines : ndd
+    
+    delete from the cursor : D                      
+    
+    delete single character : x                       delete n characters : nx
+    
+    delete word : w                                       delete n words : nw
+    
+    Replace letter : r
+    
+    Replace word : cw                                  Replace n words : ncw
+    
+    Replace Line : C                                    Replace n lines : nC
+    
+    Empty line : o                                         n empty lines : no
+    
+    empty line Above the cursor : O
+    
+    Join the lines : J                                    Join n lines : nJ
+    
+    Copy line: yy
+    
+    Paste : pp
+    
+    Search or Find command : :s/word (word = word to be found)
+    
+    Replace : :%s/word/replace word
+    
+    That n thing goes for all the shortcuts: n is the multiple of times it has to be done
+    
+    Action after cursor is done by small letter and before cursor is done by capital letter
+    
+    Game : vim adventure
+    
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### String Processing
+
+wc
+
+wc: Word count
+
+wc -w: Only words
+
+wc -c: Only characters
+
+wc -l : linecount
+
+head
+
+Prints top lines of file
+
+by default 10 lines are shown
+
+-n “no. of lines”
+
+-c “no. of characters”
+
+head /etc/passwd /etc/shadow /etc/shadow
+
+tail 
+
+Prints bottom of the file
+
+-n “no. of lines”
+
+-c “no. of characters”
+
+sed 
+
+Print From line number this to that
+
+p - print
+
+(this also update the actual file, so don’t mess with original files)
+
+sed -n ‘5p’ /file (prints line 5)
+
+sed -n ‘1,2p’ passwd (prints line 1 to 2)
+
+sed -n ‘5,8p’ passwd (prints line 5 to 8)
+
+sed -n ‘^$p’ /file (prints empty line)
+
+sed -n ‘$p’ /file (prints last line
+
+sed -n ‘5,8!p’ passwd (does not print line 5 to 8)
+
+sed ‘s/sbin/SBINp’ /file (s for find and replace)
+
+sed ‘G;Gp’ /file (prints empty line after every line)
+
+sort
+
+sort filename (Does dictionary sort)
+
+sort -n(numeric sort)
+
+sort -h(human readable)
+
+sort -r(reverse)
+
+sort -u(unique)
+
+sort -R(randomize)
+
+uniq
+
+Generates unique value
+
+Works only in sequence order
+
+Can be used with sort with pipe
+
+uniq -c (Counts each occurrence)
+
+watch
+
+Runs the given command until stopped
+
+-n “define interval”
+
+- grep
+    
+    \ simply ignores the front special characters and take them as it is; used with space or special characters like & ^ # $ etc
+    
+    grep word filename
+    
+    grep “wo rd” filename or grep wo\ rd filename
+    
+    grep word file1 file2 file3
+    
+    grep -i (in-case sensitive)
+    
+    cat filename | grep word (can be used with any command)
+    
+    grep -r (for recursive search)
+    
+    grep -in word (for line number)
+    
+    grep -E ‘(Starting|Started)’ filename : Finds places containing both starting or started
+    
+    grep -E ‘(Starting|Started)’ /var/log/messages | grep user | grep root
+    
+    grep -v word (-v shows everything except the lines containing the word)
+    
+    grep ^word : If we want the word to be in starting of the line
+    
+    grep word$ : If we want the word to be in the end
+    
+    Input:
+    
+    cat /etc/ssh/sshd_config | grep -v "^\#" 
+    
+    Output:
+    
+    Lines which don’t have # in the starting
+    
+    ⇒ Another way of writing the above command :
+    
+    grep -v "^\#" /etc/ssh/sshd_config
+    
+    Input: 
+    
+    grep  -v ^$  : Removes all the empty lines
+    
+    Character Classe
+    
+    [ : upper : ]  - Uppercase character
+    
+    [ : lower : ]  - Lowercase character
+    
+    [ : alpha : ]  - Alphabetic
+    
+    [ : digit : ]  - Number
+    
+    [ : alnum : ]  - Alphanumeric
+    
+    [ : space : ]  - Whitespace character (space, tab, newline)
+    
+
+which - accurate location of the file
+
+where - accurate location of the file
+
+ps -aux
+
+Shows running processes
+
+cut
+
+n = field number(the place at which the word or pattern is occuring)
+
+d for delimiter, the thing separating each field
+
+cut -fn -d “ ” filename
+
+cut -f2 -d “ ,” filename
+
+cut -f5,6 -d “:” filename
+
+grep and cut together
+
+ifconfig | grep “inet “ | cut -d ‘ ‘ -f10
+
+ifconfig -a | grep mtu | cut -f1 -d ':'
+eth0
+lo
+wlan0
+
+awk
+
+This can filter both vertically and horizontally 
+
+basic syntax:
+
+awk ‘{print s0}’ /etc/passwd
+
+this will print everything
+
+awk ‘{print s0}’ /etc/passwd
+
+this will print first field using space as a default delimeter
+
+Printing both ver and hor:
+
+awk -F “:” ‘root/{print $1}’ /etc/passwd
+
+this will print the first word in the line where root is present using : as a delimeter
+
+awk -F “:” ‘/bash/{print $1, $3}’ /etc/passwd
+
+this will print first and third word of the lines where bash is present.
+
+Print IPv4 Addresses:
+
+ifconfig | awk ’/inet /{print $2}’
+
+Decorating headers and tails using awk
+
+ifconfig | awk ‘ BEGIN{ Print “=== IP Address===” } /inet /{print $2}
+
+We can print anything in the head using BEGIN
+
+echo " one two three four" | awk 'BEGIN{print "=========TITLE========="} {print $0} END {print "_______________________________"}'
+
+Update the field value
+
+awk -F “:” ‘/bash/{ $1 = “Updated; print $1}’ /etc/passwd
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Directory Structure in Linux
+
+The directory structure in Linux is hierarchical and rooted at the `/` (root) directory. Here’s an overview of the common directories found in a typical Linux filesystem:
+
+1. **`/` (Root Directory)**:
+    - The top-level directory in the hierarchy.
+2. **`/bin` (Binary)**:
+    - Essential command binaries that need to be available in single-user mode; for all users, e.g., `ls`, `cp`, `mv`.
+3. **`/boot`**:
+    - Contains the kernel and other files needed to boot the system, such as bootloader files (e.g., GRUB).
+4. **`/dev` (Device Files)**:
+    - Contains device files representing hardware components, such as `/dev/sda` for a hard drive.
+5. **`/etc` (Et Cetera)**:
+    - Contains system-wide configuration files and shell scripts that are used to boot and initialize the system, e.g., `/etc/passwd` for user account information.
+6. **`/home`**:
+    - Contains user home directories. Each user has a subdirectory here, e.g., `/home/user1`.
+7. **`/lib` (Libraries)**:
+    - Contains essential shared libraries and kernel modules needed to boot and run the system.
+8. **`/media`**:
+    - Contains mount points for removable media such as CDs, DVDs, and USB drives that are automatically mounted.
+9. **`/mnt`**:
+    - Provides a mount point for temporarily mounting filesystems, such as network filesystems or additional storage devices.
+10. **`/opt` (Optional)**:
+    - Contains add-on software packages that are not part of the default installation.
+11. **`/proc` (Process Information)**:
+    - A virtual filesystem that provides a mechanism to access process and system information from the kernel. It contains directories and files representing system and process information, e.g., `/proc/cpuinfo`.
+12. **`/root`**:
+    - The home directory for the root user (system administrator).
+13. **`/run`**:
+    - Contains transient runtime data, such as information about the running system since the last boot.
+14. **`/sbin` (System Binaries)**:
+    - Contains essential system binaries, such as administrative commands and system utilities used by the root user, e.g., `ifconfig`, `reboot`.
+15. **`/srv` (Service)**:
+    - Contains data for services provided by the system, such as web server data.
+16. **`/sys`**:
+    - A virtual filesystem that provides information about the kernel, devices, and other system components.
+17. **`/tmp` (Temporary)**:
+    - Used for temporary files created by programs. These files are usually deleted on system boot.
+18. **`/usr` (User Binaries and Read-Only Data)**:
+    - Contains user-installed software and its corresponding libraries, binaries, and documentation, e.g., `/usr/bin` for user commands, `/usr/lib` for libraries.
+19. **`/var` (Variable)**:
+    - Contains files to which the system writes data during the course of its operation, such as log files (`/var/log`), spool files (`/var/spool`), and cache files (`/var/cache`).
+
+Understanding this directory structure is crucial for system administration, navigation, and organization in Linux.
+
+4o
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### **User Management**
+
+User Accounts Facts
+
+⇒ Every user is assigned a UId
+
+⇒ User’s information such as user name, UID, home directory and shell is stored in /etc/passwd
+
+⇒ There are three types of user in Linux: root, regular and service
+
+root : UID - 0
+
+regular : UID - 1000 to 60000 in linux
+
+service : UID - 100 to 999 : Service accounts are created by installation packages when they are installed. These accounts are used by services to run processes and executed functions. 
+
+Home directory of ;
+
+Root            -              /root
+
+Regular       -              /home/user1
+
+In server, do;
+
+cat /etc/login.defs    or grep UID /etc/login.defs
+
+Group Facts in RHEL
+
+⇒ User’s are assigned to a group
+
+⇒ Each group is assigned a unique group ID GID
+
+⇒ Information of group at /etc/group
+
+⇒ Each user given their own private group. Can be added to other groups for additional access.
+
+sudo cat /etc/shadow
+
+[sudo] password for hv-rahul:
+username         :            x    :         1000       :           1000          :      Something        :       home/armour      :                  bin/bash
+
+   |                                  |                      |                       |                                  |                                   |                                     |
+
+user                           Indicate          UID                   GID                   Comment                              Home                          /bin/bash
+
+name                        password pro                                                                                                directory                          shell
+
+cat /etc/shadow
+
+1. Username
+2. Encrypted Password
+3. Last Password Change
+4. Minimum password age
+5. Maximum password age
+6. Warning Period 
+7. Inactivity period
+8. Expiration date
+9. Unused
+
+cat /etc/group
+
+1. Group name
+2. Password indicater
+3. Group ID
+4. List of the users
+
+cat /etc/gshadow
+
+1. Group name
+2. Encrypted Password
+3. Group admin name
+4. List of group members
+
+cat /etc/shells
+
+My shell : echo $shell
+
+For colorful terminal
+
+wget grc : https://github.com/garabik/grc/archive/refs/tags/v1.13.zip
+
+unzip
+
+run [install.sh](http://install.sh) in grc file
+
+then run grc ping 8.8.8.8
+
+grc does not support all commands
+
+**==============================================================================**
+
+### **#Add User**
+
+CentOS supports both useradd and adduser
+
+Debian supports adduser precisely
+
+Files which gets updated passwd, shadow, group, gshadow
+
+Debian doesn’t create home directory of a user by default so we have to user 
+
+useradd —create-home username
+
+useradd —no-create-home username : No home directory
+
+vim /etc/default/useradd : Change the home directory location
+
+Add Comment with user
+
+useradd -c “Comment” username
+
+Add user without group
+
+useradd -N username
+
+Give user a shell
+
+useradd -s /shell/name username
+
+Change user’s or Add user’s id 
+
+useradd -u 1018(any) username
+
+useradd -o -u 1024(any) username : Non-unique user id
+
+Same userid will open the same account even if the usernames are different
+
+Make a root user
+
+useradd -u 0 Admin
+
+Set Password
+
+useradd -p “Password’s hash” username
+
+For creating the hash of password
+
+openssl passwd -6 “Raw Password”(-6 option for debian only)
+
+Or 
+
+mkpasswd tool
+
+We can provide  all the options above at once
+
+### #Usermod
+
+Usermod works same as Adduser or Useradd, its just that Adduser/Useradd makes a new user and Usermod is used to modify the present user
+
+Lock User
+
+usermod -L username
+
+### #Userdel
+
+Delete with home directory:
+
+userdel -r username
+
+deluser: Deletes user from a group only
+
+### #GroupAdd
+
+groupadd -h
+
+groupadd -r : create system group
+
+### #GroupMod
+
+groupmod -h
+
+#groups : Check the groups of a user
+
+### #gpasswd
+
+set password by default
+
+gpasswd -a username groupname (Add user to a group)
+
+gpasswd -M users groupname (Add multiple users in a group)
+
+gpasswd -d user group (delete user from a group)
+
+gpasswd -A (Make user group Admin)
+
+A user can have multiple secondary groups
+
+**#Change primary group of a user**
+
+usermod -g groupid username
+
+**#Add secondary groups to the user**
+
+usermod -G
+
+### #chown
+
+Change owner:
+
+chown ownername filename
+
+Change owner and group:
+
+chown owner:group filename
+
+// We can give multiple filename at a time
+
+Wildcards can also be used in chown
+
+//Change folder permission
+
+chown owner folder/ 
+
+chown -R owner folder/ 
+
+### #chgrp
+
+Changes only group
+
+### #chmod
+
+Change the owner, group and other’s permissions
+
+1st block indicate the permissions of owner
+
+2nd tell the permissions of respective group
+3rd show the permissions of other users to that file
+
+⇒ Give owner the permission to write, read, execute
+
+chmod u+r filename
+
+chmod u+w filename
+
+chmod u+x filename
+
+⇒ Give others to write, read, execute
+
+chmod o+r filename
+
+chmod o+w filename
+
+chmod o+x filename
+
+⇒ Give group to write, read, execute
+
+chmod g+r filename
+
+chmod g+w filename
+
+chmod g+x filename
+
+⇒ Remove owner, other or group to write, read, execute
+
+chmod u-r filename
+
+chmod o-w filename
+
+chmod g-x filename
+
+⇒ Give read, write, execute permission to all
+
+chmod a+rwx filename
+
+chmod 777 filename
+
+| PERMISSION | PROVIDE PERMISSION |
+| --- | --- |
+| read | add 4 |
+| write | add 2 |
+| execute | add 1 |
+|  |  |
+
+⇒ Similarly remove
+
+chmod a-rwx filename
+
+⇒ Give other+ group permission all
+
+chmod og+rwx filename
+
+You got the point right??
+
+Now play with it no!…not everything will be written here.
+
+⇒ Give different permissions to everyone
+
+chmod u+rwx o+rw g+r filename
+
+Wild cards also applicable here
+
+### #Special Permissions
+
+SUID and SGID
+
+In special permission, the binary of the file is set to open with owner’s permissions everytime it is opened.
+
+Special Permission code : 4755 
+
+First locate file which you want to give special permission to 
+
+chmod u+s filelocation
+
+Remove Permission:
+
+chmod u-s filelocation
+
+To compile a c file:
+
+gcc filename.c -o compiled-file (-o for output)
+
+⇒ Check the filetype
+
+**file** filename
+
+### #Sticky bit and acl
+
+**Sticky Bit:** A sticky bit is **a permission bit that can be set on a file or directory in a Unix-based operating system, such as Linux or macOS**. It prevents anyone without permission from deleting or renaming a file or directory, even if other users have write permission to the directory. 
+
+Assume if there’s a parent directory with permission 777, then anyone can read, write execute each and every content in the directory, if user Harsh creates any file, Shreya can modify or delete it, so if we want that the User who created the file should only be able to access the file then we use sticky bit
+
+o+t : others with sticky bit OR “1777”
+
+o-t : removing sticky bit OR “0777”
+
+In this case others had the permission to read, write and execute
+
+**ACL :** If only users and group had permission to read, write and execute a file or folder and we want others to do the same without adding them to into user or group then we use ACL
+
+Run these following commands
+
+**blkid** : See the file system of the OS
+
+**lsblk :** which directory is mounted where
+
+yum repolist all : to see if package is available
+
+yum install acl
+
+rpm -qa(query for all) | grep acl : Tell the package version and name
+
+rpm -qa packagename
+
+getfacl -h
+
+setfacl -h
+
+**#su and sg**
+
+switching in the same directory : sudo su
+
+su - root (switch user and creates session)
+
+su root(switch without creating session)
+
+Run command with other user’s power without switching
+
+su username -c command
+
+e.g. 
+
+su armour -c pwd
+
+su armour -c /bin/bash
+
+Change primary group of user: 
+
+su armour -g HR
+
+Secondary:
+
+su armour -G IT
+
+**How to reset Grub or Root password in CentOS** 
+
+⇒ To change the root password we can change it through GRUB
+
+⇒ If someone locks the GRUB also then use live ISO 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Adding Path to Path Variable
+
+If we do 
+
+echo $PATH
+
+ **It will show you different paths separated by ':' for the user**. /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin. If you type a command system will search these locations for a binary. If there are no commands with the name in those locations system will tell you ' Command not found 
+
+You can put the binary file in any of these locations it will run as executable command
+
+Or you can edit :
+
+ /etc/profile
+
+.bashrc or .zshrc or fish/config.fish file 
+
+and add 
+
+PATH=$PATH:/home/bin:/home/sbin
+
+or any location with colon( : )  
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Sudo Configurations
+
+To change sudo configurations:
+
+vim /etc/ sudoers 
+
+There are three places where ALL is written
+
+1st Place: Hosts name
+
+2nd Place: Users name:Group Name
+
+3rd Place: Permissions
+
+Change secure_path
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b9d57550-3f7e-43fd-91d7-c9e38f29ee9d/4f6c59b6-70d6-4a82-9b0c-ba1141d86910/Untitled.png)
+
+To run command with a specific user privilege:
+
+sudo -u username command
+
+Add Group : 
+
+%wheel  ALL=(ALL)       ALL
+
+If you want to give any user sudo privileges; Add him to root or group with sudoers power
+
+sudo -aG root username
+
+e.g. usermod -aG wheel cent
+
+Giving limited Privileges:
+
+Edit the sudoers file but not with vim 
+
+Instead use sudoedit or visudo
+
+or sudo Editor=vim visudo
+
+**Sudo Alias Configurations:**
+
+**Host Alias**
+
+The PC or Servers whose name is  in the Host_Alias will be able to run the run after this configuration
+
+visudo
+
+Host_Alias     Alias_Name = Coma separated Hosts names
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b9d57550-3f7e-43fd-91d7-c9e38f29ee9d/c97b1c1f-37e7-47b6-b23a-5f491bf9a7ee/Untitled.png)
+
+Add:
+
+user       Alias_Name = ( Permission )     ALL
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b9d57550-3f7e-43fd-91d7-c9e38f29ee9d/c21ebce5-6bb0-48fb-81a7-afa3d8f2e7e6/Untitled.png)
+
+Add users name here whom you want to give permission on that pc
+
+**User Alias**
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b9d57550-3f7e-43fd-91d7-c9e38f29ee9d/18ea545f-d8ff-42d1-b6ee-33b73d2ba394/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b9d57550-3f7e-43fd-91d7-c9e38f29ee9d/e72e6020-f77a-4483-8254-f3dd0116617b/Untitled.png)
+
+**Command Alias**
+
+Cmnd_Alias    COMMANDS = “Give Commands”
+
+username     ALL=(ALL)        COMMANDS
+
+There are various ready made Command Aliases like
+
+Services_Alias
+
+Installation_Alias
+
+Explore them
+
+SUDO possibe without password also with NOPASSWD: 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Disk Storage Management
+
+**blkid** : See the file system of the OS
+
+**lsblk : which directory is mounted where**
+
+Difference between HDD and SSD
+
+**HDD: Motor, Platter(Data is on platter), Arm, Header**
+
+How to destroy HDD: 
+
+Types of Disk:
+
+IDE :  ATA(Advanced Technology Attachment), PATA(Parllel…)
+
+SATA: Serial Advanced Technology Attachment
+
+Types of Partition:
+
+Primary
+
+Extended
+
+>Logical
+
+To make the partitions on a disk:
+
+*ls -lh /dev/ | grep br*
+
+e.g. file /dev/sdb (to know the type of file /sdb is)
+
+blkid or lsblk or fdisk -l (to know the disks and file systems on disk)
+
+fdisk /dev/sdb
+
+/dev/efi is the boot partition of linux(generally)
+
+`/boot/efi` is a directory in Linux systems that serves a specific purpose related to the system's boot process, particularly in systems that use UEFI (Unified Extensible Firmware Interface) firmware instead of the traditional BIOS (Basic Input/Output System).
+
+Permanent Mounting Partition - fstab
+
+df -h : Tells the mounting location
+
+**vim /etc/fstab:**
+
+1st place: partition to mount
+
+2nd place: where to mount
+
+3rd place: file system
+
+4th place: permissions(go with defaults)
+
+5th place: 0 or 1 (You want to check hard drives or not)
+
+6th place: 0 or 1(Depends on 5th place)
+
+⇒There are three ways to do Per Mount(Holds the 1st place in /etc/fstab file):
+
+1. By partition no.
+2. By label
+3. By UUID(Universally Unique Identifier) - Best way 
+
+**Rename the Disk Label in different file systems:** 
+
+**For ext4:**
+
+e2label /dev/partition Label_name
+
+e.g. e2label /dev/sdb data
+
+**For xfs:**
+
+xfs_admin -L label_name partition
+
+**Logical Volume Management(LVM) in Linux**
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b9d57550-3f7e-43fd-91d7-c9e38f29ee9d/392695bc-8c0d-4cc4-a9dd-274ec030fa8f/Untitled.png)
+
+rpm -qa | grep lvm
+
+yum install lvm2
+
+pvdisplay
+
+pvcreate volume_location ( create new physical volume)
+
+e.g. pvcreate /dev/sdb1
+
+pvdisplay
+
+vgdisplay
+
+vgcreate name disks_to_add
+
+vgcreate vg1 /dev/sdb1 /dev/sdc1 /dev/sdd1
+
+vgdisplay
+
+lvdisplay
+
+lvcreate name_of_vg —name lv_name —size 60G
+
+mkfs.xfs -f /dev/vg1/lv1 (formats the volume)
+
+**Extend volume**
+
+lvdisplay
+
+xfs_growfs -n /dev/vg1/lv1
+
+lvextend  /dev/vg1/lv1 -L sizeG
+
+lvreduce /dev/vg1/lv1 —size 
+
+**RAID (Redundant Array of Independent Disks) is a data storage technology that combines multiple physical disk drives into a single logical unit for the purposes of data redundancy, performance improvement, or both.**
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Grub Rescue
+
+If your GRUB bootloader has crashed or is not functioning correctly
+
+1. **Identify the EFI System Partition (ESP)**:
+    - According to the output of `fdisk -l`, the EFI System Partition (ESP) is `/dev/nvme0n1p1`, which is typically where GRUB's EFI files are located.
+2. **Boot into a Live Linux Environment**:
+    - You will need to boot your computer using a Live Linux USB or CD. This allows you to access your installed Linux system and repair GRUB.
+3. **Mount the Linux Partition**:
+    - Once booted into the Live environment, mount your Linux root partition (`/dev/nvme0n1p7` based on the provided information). You can do this by opening a terminal and running:
+    
+    *sudo mount /dev/nvme0n1p7 /mnt*
+    
+    - Replace `/dev/nvme0n1p7` with your actual Linux root partition if it's different.
+4. **Mount the EFI System Partition (ESP)**:
+    - Next, mount the EFI System Partition (ESP) to `/mnt/boot/efi`:
+    
+    *sudo mount /dev/nvme0n1p1 /mnt/boot/efi*
+    
+    - This assumes `/dev/nvme0n1p1` is indeed your EFI System Partition. Adjust accordingly if your ESP is located elsewhere.
+5. **Chroot into Your Installed System**:
+    - Now, you need to chroot (change root) into your installed Linux system on `/mnt`. This step sets up your environment as if you were running directly from your installed system:
+    
+    *sudo mount --bind /dev /mnt/dev
+    sudo mount --bind /proc /mnt/proc
+    sudo mount --bind /sys /mnt/sys
+    sudo chroot /mnt*
+    
+6. **Reinstall GRUB**:
+    - Once inside the chroot environment, reinstall GRUB to the EFI System Partition (ESP) using `grub-install`:
+    
+    *grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB*
+    
+7. **Update GRUB Configuration**:
+    - After reinstalling GRUB, regenerate the GRUB configuration file (`grub.cfg`):
+    
+    *update-grub*
+    
+8. **Exit Chroot and Reboot**:
+    - After updating GRUB, exit the chroot environment:
+    
+    *exit*
+    
+    - Unmount all mounted partitions:
+    
+    *sudo umount /mnt/dev
+    sudo umount /mnt/proc
+    sudo umount /mnt/sys
+    sudo umount /mnt/boot/efi
+    sudo umount /mnt*
+    
+9. **Restart Your Computer**:
+    - Remove the Live Linux USB or CD and restart your computer. GRUB should now be reinstalled and should appear during boot, allowing you to choose your operating system.
+    
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### Package Manager
+
+To know the Linux
+
+cat /etc/os-release
+
+or uname -a
+
+or rpm - Package Manager(if this command is running that  means it is red hat) - false positive sometimes
+
+or dpkg - Package Manager (if this command is running that means it is debian)
+
+or yum - Advanced Package Manager(runs in Red hat)
+
+or apt - Advanced Package Manager(runs in debian)
+
+- **CentOS**
+    
+    Package - A bunch or bundle
+    
+    Linux is a file based Operating System i.e. we put file in linux and it will run it. So a package is a bundle of different files which when downloaded takes their respective places automatically.
+    
+    Windows is a registry based Operating System.
+    
+    Standalone Binary: The binaries which doesn’t require any dependencies
+    
+    Red Hat: 
+    
+    .rpm extensions
+    
+    use of package: RPM cmd used for installing software, documentation and source code
+    
+    Types: RPM(binary) , SRPM(source code)
+    
+     RPM database location : /var/lib/rpm
+    
+    **Different options in rpm**
+    
+    man rpm(rpm manual)
+    
+    rpm -q (query)
+    
+    rpm -qa | grep vim (searches for vim package)
+    
+    rpm -qa | wc -l ( installed packages)
+    
+    rpm -qi (information of package)
+    
+    rpm -ql (data-file in the package)
+    
+    rpm -qc (configurations)
+    
+    rpm -qd (documentation)
+    
+    rpm -qR (Required or Dependencies or package)
+    
+    rpm -qpa( a = c, d, i, R, l) : Without installation -qp
+    
+    rpm -qip (information without installation)
+    
+    To find the package name:
+    
+    whereis cmd (Finds location of binary)
+    
+    e.g. whereis cat
+    
+    rpm -qf binary_location
+    
+    e.g. rpm -qf /usr/bin/cat
+    
+    ---
+    
+    ---
+    
+    rpm -Vvp package(Verify everything is okay, verbose and package)
